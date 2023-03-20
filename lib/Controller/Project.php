@@ -1,18 +1,19 @@
 <?php
 namespace Up\Projector\Controller;
 
+use Bitrix\Main\Engine;
 use Bitrix\Main\Error;
 use Up\Projector\Project\Repository;
 
-class Project extends \Bitrix\Main\Engine\Controller
+class Project extends Engine\Controller
 {
 	protected const PROJECT_PER_PAGE = 20;
-	protected function getDefaultPreFilters(): array
-	{
-		return [
-			new ActionFilter\ApiKeyAuthorization(),
-		];
-	}
+//	protected function getDefaultPreFilters(): array
+//	{
+//		return [
+//			new ActionFilter\ApiKeyAuthorization(),
+//		];
+//	}
 
 	public function getListAction(int $pageNumber = 1): ?array
 	{
@@ -23,11 +24,25 @@ class Project extends \Bitrix\Main\Engine\Controller
 			return null;
 		}
 
-		$projectList = Repository::getList(self::PROJECT_PER_PAGE, self::PROJECT_PER_PAGE * $pageNumber);
+		$projectList = Repository::getPage(self::PROJECT_PER_PAGE, $pageNumber);
 
 		return [
 			'pageNumber' => $pageNumber,
 			'projectList' => $projectList,
 		];
 	}
+
+//	public function configureActions(): array
+//	{
+//		return [
+//			'getList' => [
+//				'+prefilters' => [
+//					new ActionFilter\ApiKeyAuthorization(),
+//				],
+//				'-prefilters' => [
+//					Engine\ActionFilter\Csrf::class,
+//				],
+//			],
+//		];
+//	}
 }

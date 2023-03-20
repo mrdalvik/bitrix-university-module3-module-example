@@ -1,19 +1,31 @@
 <?php
+
 namespace Up\Projector\Project;
+
+use Up\Projector\Model\ProjectsTable;
 
 class Repository
 {
-	public static function getList(int $limit, int $offset): array
+	public static function getPage(int $itemsPerPage, int $pageNumber): array
 	{
-		return [
-			[
-				'id' => 1,
-				'name' => 'Test 1',
+		if ($pageNumber > 1)
+		{
+			$offset = $itemsPerPage * ($pageNumber - 1);
+		}
+		else
+		{
+			$offset = 0;
+		}
+
+		$projectList = ProjectsTable::getList([
+			'select' => [
+				'ID',
+				'NAME'
 			],
-			[
-				'id' => 2,
-				'name' => 'Test 2',
-			],
-		];
+			'limit' => $itemsPerPage,
+			'offset' => $offset,
+		])->fetchAll();
+
+		return $projectList;
 	}
 }
