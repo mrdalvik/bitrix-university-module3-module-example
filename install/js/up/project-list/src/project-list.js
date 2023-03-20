@@ -37,18 +37,22 @@ export class ProjectList
 	loadList()
 	{
 		return new Promise((resolve, reject) => {
-			let projectList = [
+			BX.ajax.runAction(
+				'up:projector.project.getList',
 				{
-					id: 1,
-					name: 'Task 1',
-				},
-				{
-					id: 2,
-					name: 'Task 2',
-				},
-			];
+					data: {
+						apiKey: 'very_secret_key',
+					}
+				})
+				.then((responce) => {
+					const projectList = responce.data.projectList;
 
-			resolve(projectList);
+					resolve(projectList);
+				})
+				.catch((error) => {
+					console.error(error);
+				})
+			;
 		});
 	}
 
@@ -63,8 +67,8 @@ export class ProjectList
 				<div class="column">
 					<div class="card project-card">
 						<header class="card-header">
-							<a class="card-header-title card-header-title-from-database" href="/projects/${projectData.id}/">
-								${projectData.name}
+							<a class="card-header-title card-header-title-from-database" href="/projects/${projectData.ID}/">
+								${projectData.NAME}
 							</a>
 							<button class="card-header-icon" aria-label="more options">
 								<span class="icon disabled">

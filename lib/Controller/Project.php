@@ -32,17 +32,17 @@ class Project extends Engine\Controller
 		];
 	}
 
-//	public function configureActions(): array
-//	{
-//		return [
-//			'getList' => [
-//				'+prefilters' => [
-//					new ActionFilter\ApiKeyAuthorization(),
-//				],
-//				'-prefilters' => [
-//					Engine\ActionFilter\Csrf::class,
-//				],
-//			],
-//		];
-//	}
+	public function configureActions(): array
+	{
+		return [
+			'getList' => [
+				// '+prefilters' => [
+				// 	new ActionFilter\ApiKeyAuthorization(),
+				// ],
+				'-prefilters' => [
+					Engine\ActionFilter\Authentication::class,
+				],
+			],
+		];
+	}
 }
