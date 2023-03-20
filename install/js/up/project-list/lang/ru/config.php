@@ -1,0 +1,4 @@
+<?php
+
+$MESS['UP_PROJECTOR_PROJECT_LIST_TASKS_OPENED'] = 'Открытых задач';
+$MESS['UP_PROJECTOR_PROJECT_LIST_LAST_ACTIVITY'] = 'Последняя активность';

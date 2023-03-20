@@ -5,7 +5,7 @@
  * @var array $arParams
  */
 
-\Bitrix\Main\UI\Extension::load('main.core');
+\Bitrix\Main\UI\Extension::load('up.project-list');
 
 if(!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true) die();
 ?>
@@ -33,7 +33,7 @@ if(!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true) die();
 				</a>
 				<button class="card-header-icon" aria-label="more options">
 					<span class="icon disabled">
-						⭐
+						*
 					</span>
 				</button>
 			</header>
@@ -51,3 +51,14 @@ if(!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true) die();
 	<?php endforeach; ?>
 </div>
 
+<div id="project-list-app"></div>
+
+<script>
+	BX.ready(function() {
+
+		window.ProjectorProjectList = new BX.Up.Projector.ProjectList({
+			rootNodeId: 'project-list-app',
+		});
+
+	});
+</script>
